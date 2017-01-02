@@ -53,11 +53,13 @@ const async = require('async'),
                     extension = path.extname(oldName),
                     filename = path.basename(oldName, extension);
 
-                async.forEachOf(outputs, (options, suffix, callback) => {
+                const params = typeof output == 'function' ? outputs(file) : outputs;
+
+                async.forEachOf(params, (options, suffix, callback) => {
                     const rgba = options.background ? color(options.background).toRgb() : { r: 0, g: 0, b: 0, a: 0 },
                         background = Jimp.rgbaToInt(rgba.r, rgba.g, rgba.b, rgba.a * MAX_HEX),
                         type = getMIME(extension, options.type),
-                        newName = filename + suffix + type.extension;
+                        newName = suffix + type.extension;
 
                     const image = origImage.clone();
 
