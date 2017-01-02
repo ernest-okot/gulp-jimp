@@ -53,7 +53,7 @@ const async = require('async'),
                     extension = path.extname(oldName),
                     filename = path.basename(oldName, extension);
 
-                const params = typeof output == 'function' ? outputs(file) : outputs;
+                const params = typeof outputs == 'function' ? outputs(file) : outputs;
 
                 async.forEachOf(params, (options, suffix, callback) => {
                     const rgba = options.background ? color(options.background).toRgb() : { r: 0, g: 0, b: 0, a: 0 },
